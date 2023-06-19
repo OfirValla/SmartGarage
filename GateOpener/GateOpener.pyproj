@@ -39,6 +39,7 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="requirements.txt" />
     <Content Include="valla-projects-firebase-adminsdk-3ogbz-2ec52a9c7b.json" />
   </ItemGroup>
   <ItemGroup>

@@ -8,12 +8,17 @@ import time
 
 def __open_or_close():
     print("Open or Close")
+    #operate_gate()
 
 
 def __open_and_close():
     print("Open gate")
+    #operate_gate()
+
     time.sleep(60 * 3)
+    
     print("Close gate")
+    #operate_gate()
 
 
 requests = {

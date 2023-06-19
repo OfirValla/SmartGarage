@@ -3,6 +3,10 @@ import time
 
 # ------------------------------------------------------------------ #
 
+_gpio = 27
+
+# ------------------------------------------------------------------ #
+
 def _sleep_microseconds(ms):
     delayInSeconds = ms / 1000000
     _delayInSeconds = delayInSeconds / 100
@@ -40,7 +44,6 @@ def _send_code():
 def operate_gate():
     print("Open/Close gate")
     GPIO.setmode(GPIO.BCM)
-    _gpio = 27
     GPIO.setup(_gpio, GPIO.OUT)
 
     for _ in range(0, 20):
