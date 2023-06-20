@@ -1,5 +1,5 @@
-#from GateRadioController import operate_gate
 from Utils.FirebaseListener import FirebaseListener
+from GateRadioController import operate_gate
 from Models.GateRequest import GateRequest
 
 import time
@@ -8,17 +8,17 @@ import time
 
 def __open_or_close():
     print("Open or Close")
-    #operate_gate()
+    operate_gate()
 
 
-def __open_and_close():
+def __open_and_close(delay_in_seconds = 90):
     print("Open gate")
-    #operate_gate()
+    operate_gate()
 
-    time.sleep(60 * 3)
+    time.sleep(delay_in_seconds)
     
     print("Close gate")
-    #operate_gate()
+    operate_gate()
 
 
 requests = {
@@ -29,7 +29,7 @@ requests = {
 # ------------------------------------------------------------------ #
 
 def on_command(request: GateRequest):
-    requests[request.type]()
+    requests[request.type](**request)
 
 # ------------------------------------------------------------------ #
 
