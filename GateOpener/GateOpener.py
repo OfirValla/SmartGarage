@@ -7,12 +7,12 @@ import time
 
 # ------------------------------------------------------------------ #
 
-def __open_or_close():
+def __open_or_close(**_):
     print("Open or Close")
     operate_gate()
 
 
-def __open_and_close(delay_in_seconds = 90):
+def __open_and_close(delay_in_seconds = 90, **_):
     print("Open gate")
     operate_gate()
 
