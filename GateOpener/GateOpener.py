@@ -2,6 +2,7 @@ from Utils.FirebaseListener import FirebaseListener
 from GateRadioController import operate_gate
 from Models.GateRequest import GateRequest
 
+import dataclasses
 import time
 
 # ------------------------------------------------------------------ #
@@ -29,7 +30,7 @@ requests = {
 # ------------------------------------------------------------------ #
 
 def on_command(request: GateRequest):
-    requests[request.type](**request)
+    requests[request.type](**dataclasses.asdict(request))
 
 # ------------------------------------------------------------------ #
 
