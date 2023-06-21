@@ -46,8 +46,8 @@ def operate_gate():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(_gpio, GPIO.OUT)
 
-    for _ in range(0, 20):
-        _send_code()
+    #for _ in range(0, 20):
+    _send_code()
 
     GPIO.cleanup()
 
