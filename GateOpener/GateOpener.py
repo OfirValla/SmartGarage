@@ -1,5 +1,6 @@
+from GateRadioController import operate_gate, cleanup
+
 from Utils.FirebaseListener import FirebaseListener
-from GateRadioController import operate_gate
 from Models.GateRequest import GateRequest
 
 import dataclasses
@@ -35,3 +36,4 @@ def on_command(request: GateRequest):
 # ------------------------------------------------------------------ #
 
 FirebaseListener(on_command)
+cleanup()
