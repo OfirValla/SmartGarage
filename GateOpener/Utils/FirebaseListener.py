@@ -36,6 +36,7 @@ class FirebaseListener:
             if key == 'placeholder':
                 continue
 
+            print (f"Removing: {key}")
             db.reference('gate-controller', app= self.app).child(key).delete()
 
     # ------------------------------------------------------------------ #
