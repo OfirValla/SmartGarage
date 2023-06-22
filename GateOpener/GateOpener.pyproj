@@ -25,7 +25,7 @@
     <Compile Include="GateOpener.py" />
     <Compile Include="GateRadioController.py" />
     <Compile Include="Models\GateRequest.py" />
-    <Compile Include="Utils\FirebaseListener.py" />
+    <Compile Include="Services\FirebaseListener.py" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
@@ -40,11 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
+    <Content Include="Services\DiscordSender.py" />
     <Content Include="valla-projects-firebase-adminsdk-3ogbz-2ec52a9c7b.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Utils\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
