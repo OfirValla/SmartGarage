@@ -22,8 +22,21 @@ class FirebaseListener:
 
         print("Connected")
 
+        self.__remove_old_commands()
+
         print("Start listening to events")
         db.reference('gate-controller', app= self.app).listen(self.__listener)
+
+    # ------------------------------------------------------------------ #
+
+    def __remove_old_commands(self):
+        print("Removing old commands")
+        keys = list(db.reference('gate-controller', app= self.app).get().keys())
+        for key in keys:
+            if key is 'placeholder':
+                continue
+
+            db.reference('gate-controller', app= self.app).child(key).delete()
 
     # ------------------------------------------------------------------ #
 
