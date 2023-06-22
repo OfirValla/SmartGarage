@@ -3,6 +3,8 @@ import time
 
 # ------------------------------------------------------------------ #
 
+GPIO.cleanup()
+
 GPIO.setmode(GPIO.BCM)
 _gpio = 27
 GPIO.setup(_gpio, GPIO.OUT)
