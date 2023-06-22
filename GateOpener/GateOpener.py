@@ -4,7 +4,10 @@ from Utils.FirebaseListener import FirebaseListener
 from Models.GateRequest import GateRequest
 
 import dataclasses
+import threading
+import signal
 import time
+import sys
 
 # ------------------------------------------------------------------ #
 
@@ -35,5 +38,17 @@ def on_command(request: GateRequest):
 
 # ------------------------------------------------------------------ #
 
+def signal_handler(signal, frame):
+    print('You pressed Ctrl+C!')
+    cleanup()
+    sys.exit(0)
+
+# ------------------------------------------------------------------ #
+
 FirebaseListener(on_command)
-cleanup()
+
+signal.signal(signal.SIGINT, signal_handler)
+
+print('Press Ctrl+C')
+forever = threading.Event()
+forever.wait()
