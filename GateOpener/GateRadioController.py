@@ -3,7 +3,9 @@ import time
 
 # ------------------------------------------------------------------ #
 
+GPIO.setmode(GPIO.BCM)
 _gpio = 27
+GPIO.setup(_gpio, GPIO.OUT)
 
 # ------------------------------------------------------------------ #
 
@@ -43,12 +45,11 @@ def _send_code():
 
 def operate_gate():
     print("Open/Close gate")
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(_gpio, GPIO.OUT)
 
-    #for _ in range(0, 20):
-    _send_code()
-
-    GPIO.cleanup()
+    for _ in range(0, 20):
+        _send_code()
 
 # ------------------------------------------------------------------ #
+
+def cleanup():
+    GPIO.cleanup()
