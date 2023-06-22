@@ -33,7 +33,7 @@ class FirebaseListener:
         print("Removing old commands")
         keys = list(db.reference('gate-controller', app= self.app).get().keys())
         for key in keys:
-            if key is 'placeholder':
+            if key == 'placeholder':
                 continue
 
             db.reference('gate-controller', app= self.app).child(key).delete()
@@ -66,7 +66,7 @@ class FirebaseListener:
         # Delete all existing commands
         for key in commands:
             # Skip placeholder key that keeps the gate-controller reference visible in ui
-            if key is "placeholder":
+            if key == "placeholder":
                 continue
 
             db.reference('gate-controller', app= self.app).child(key).delete()
