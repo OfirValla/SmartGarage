@@ -77,6 +77,8 @@ class FirebaseListener:
         #        continue
 
         #    db.reference('gate-controller', app= self.app).child(key).delete()
+
+        db.reference(f'gate-controller{event.path}', app= self.app).delete()
    
     # ------------------------------------------------------------------ #
 
