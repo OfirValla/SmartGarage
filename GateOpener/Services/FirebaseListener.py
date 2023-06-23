@@ -41,12 +41,13 @@ class FirebaseListener:
 
     # ------------------------------------------------------------------ #
 
-    def __listener(self, event):
+    def __listener(self, event: db.Event):
         if not event.data:
             return
 
         print("new event")
-        print (event)
+        print (event.path)
+        print (event.event_type)
         print (event.data)
         commands = list(event.data.keys())
         
