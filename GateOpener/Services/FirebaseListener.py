@@ -51,6 +51,7 @@ class FirebaseListener:
         print (event.data)
         
         if "placeholder" == event.data['type']:
+            print (f"{event.path} is placeholder")
             return
         
         request = GateRequest(
