@@ -45,6 +45,10 @@ class FirebaseListener:
         if not event.data:
             return
 
+        # Skip initial event
+        if event.path == '/':
+            return;
+
         print("new event")
         print (event.path)
         print (event.event_type)
