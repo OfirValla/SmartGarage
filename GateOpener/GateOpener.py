@@ -38,7 +38,7 @@ requests = {
 # ------------------------------------------------------------------ #
 
 def on_command(request: GateRequest):
-    requests[request.type](**dataclasses.asdict(request))
+    requests[request.type](user= request.user, **request.data)
 
 # ------------------------------------------------------------------ #
 

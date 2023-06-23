@@ -68,6 +68,7 @@ class FirebaseListener:
                 name=event.data["name"],
                 photo=event.data["photo"],
             ),
+            data=event.data['data'] if 'data' in event.data else {}
         )
 
         # If multiple commands arrive execute only once

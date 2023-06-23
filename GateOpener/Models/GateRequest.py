@@ -6,6 +6,7 @@ from Models.User import User
 class GateRequest:
     type: str
     user: User
+    data: dict
 
     
 
