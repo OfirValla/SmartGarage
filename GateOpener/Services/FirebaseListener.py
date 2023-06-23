@@ -1,12 +1,16 @@
-from pickle import FALSE
-import firebase_admin
+from colorama import Fore, Style
+
 from firebase_admin import credentials
 from firebase_admin import db
+from dacite import from_dict
 
 from threading import Thread
 
 from Models.GateRequest import GateRequest
 from Models.User import User
+from Services.DiscordSender import send_discord_message
+
+import firebase_admin
 
 class FirebaseListener:
     def __init__(self, on_command):
@@ -14,7 +18,7 @@ class FirebaseListener:
         project_id = "valla-projects"
         options = {"databaseURL": "https://valla-projects-default-rtdb.firebaseio.com"}
 
-        print("Connecting to firebase")
+        print(f"Connecting to {Fore.LIGHTGREEN_EX}Firebase{Style.RESET_ALL}")
 
         self.cred = credentials.Certificate(json_path)
         self.app = firebase_admin.initialize_app(
@@ -22,25 +26,41 @@ class FirebaseListener:
         )
         self.on_command = on_command
         self.is_running_command = False
+        self.authed_users = []
 
-        print("Connected")
+        print(f" * {Fore.LIGHTGREEN_EX}Connected{Style.RESET_ALL}")
 
         self.__remove_old_commands()
 
-        print("Start listening to events")
-        db.reference("gate-controller", app=self.app).listen(self.__listener)
+        print(f"{Fore.LIGHTGREEN_EX}Start listening to events{Style.RESET_ALL}")
+        db.reference("gate-controller/authed-users", app=self.app).listen(
+            self.__authed_users_listener
+        )
+        db.reference("gate-controller/commands", app=self.app).listen(self.__listener)
 
     # ------------------------------------------------------------------ #
 
     def __remove_old_commands(self):
         print("Removing old commands")
-        keys = list(db.reference("gate-controller", app=self.app).get().keys())
+        keys = list(db.reference("gate-controller/commands", app=self.app).get().keys())
         for key in keys:
             if key == "placeholder":
                 continue
 
-            print(f"Removing: {key}")
-            db.reference("gate-controller", app=self.app).child(key).delete()
+            print(f" * {Fore.LIGHTRED_EX}Removing: {key}{Style.RESET_ALL}")
+            db.reference("gate-controller/commands", app=self.app).child(key).delete()
+
+    # ------------------------------------------------------------------ #
+
+    def __authed_users_listener(self, event: db.Event):
+        if event.event_type == "put":
+            self.authed_users = event.data
+            return
+
+        # patch event
+        new_emails = list(event.data.values())
+        for email in new_emails:
+            self.authed_users.append(email)
 
     # ------------------------------------------------------------------ #
 
@@ -51,26 +71,19 @@ class FirebaseListener:
         # Skip initial event
         if event.path == "/":
             return
-
-        print("new event")
-        print(event.path)
-        print(event.event_type)
-        print(event.data)
-
+        
         if "placeholder" == event.data["type"]:
-            print(f"{event.path} is placeholder")
+            print(f"{Fore.LIGHTWHITE_EX}{event.path} is placeholder{Style.RESET_ALL}")
             return
+        
+        request = from_dict(data_class= GateRequest, data= event.data)
 
-        request = GateRequest(
-            type=event.data["type"],
-            user=User(
-                email=event.data["email"],
-                name=event.data["name"],
-                photo=event.data["photo"],
-            ),
-            data=event.data['data'] if 'data' in event.data else {}
-        )
-
+        # Check if the user is authed
+        if request.user.email not in self.authed_users:
+            print(f"{Fore.LIGHTRED_EX}{request.user.email} is not authorized{Style.RESET_ALL}")
+            send_discord_message(request.user, 'Un-authorized access', 'Not authorized to open or close the gate')
+            return
+        
         # If multiple commands arrive execute only once
         # Execute only one command
         if not self.is_running_command:
@@ -78,13 +91,13 @@ class FirebaseListener:
             t.daemon = True
             t.start()
 
-        # Delte command
-        db.reference(f"gate-controller{event.path}", app=self.app).delete()
+        # Delete command
+        db.reference(f"gate-controller/commands{event.path}", app=self.app).delete()
 
     # ------------------------------------------------------------------ #
 
     def __execute_command(self, request: GateRequest):
         self.is_running_command = True
-        print("Execute command")
+        print(f" * Executing command: {Fore.LIGHTYELLOW_EX}{request.type}{Style.RESET_ALL}")
         self.on_command(request)
         self.is_running_command = False

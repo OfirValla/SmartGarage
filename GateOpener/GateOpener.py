@@ -3,8 +3,8 @@ from GateRadioController import operate_gate, cleanup
 from Services.DiscordSender import send_discord_message
 from Services.FirebaseListener import FirebaseListener
 from Models.GateRequest import GateRequest
+from Models.User import User
 
-import dataclasses
 import threading
 import signal
 import time
@@ -12,20 +12,17 @@ import sys
 
 # ------------------------------------------------------------------ #
 
-def __open_or_close(user, **_):
-    print("Open or Close")
+def __open_or_close(user: User, **_):
     send_discord_message(user, 'Open or Close', 'Openning or Closing the gate')
     operate_gate()
 
 
-def __open_and_close(user, delay_in_seconds = 90, **_):
-    print("Open gate")
+def __open_and_close(user: User, delay_in_seconds: int = 90, **_):
     send_discord_message(user, 'Open', 'Openning the gate')
     operate_gate()
 
     time.sleep(delay_in_seconds)
     
-    print("Close gate")
     send_discord_message(user, 'Close', 'Closing the gate')
     operate_gate()
 

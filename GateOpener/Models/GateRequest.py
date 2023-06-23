@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from Models.User import User
 
@@ -6,7 +6,4 @@ from Models.User import User
 class GateRequest:
     type: str
     user: User
-    data: dict
-
-    
-
+    data: dict = field(default_factory=dict)
