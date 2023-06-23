@@ -12,21 +12,21 @@ import sys
 
 # ------------------------------------------------------------------ #
 
-def __open_or_close(**_):
+def __open_or_close(user, **_):
     print("Open or Close")
-    send_discord_message('Open or Close', 'Openning or Closing the gate')
+    send_discord_message(user, 'Open or Close', 'Openning or Closing the gate')
     operate_gate()
 
 
-def __open_and_close(delay_in_seconds = 90, **_):
+def __open_and_close(user, delay_in_seconds = 90, **_):
     print("Open gate")
-    send_discord_message('Open', 'Openning the gate')
+    send_discord_message(user, 'Open', 'Openning the gate')
     operate_gate()
 
     time.sleep(delay_in_seconds)
     
     print("Close gate")
-    send_discord_message('Close', 'Closing the gate')
+    send_discord_message(user, 'Close', 'Closing the gate')
     operate_gate()
 
 
