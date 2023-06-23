@@ -16,12 +16,15 @@ const Authed = () => {
 
     const onClick = () => {
         set(
-            ref(db, `gate-controller/${uuidv4()}`),
+            ref(db, `gate-controller/commands/${uuidv4()}`),
             {
-                name: user.displayName,
-                email: user.email,
-                photo: user.photoURL,
-                type: 'open|close'
+                type: 'open|close',
+                user: {
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                },
+                data: {}
             }
         );
     };
