@@ -46,6 +46,7 @@ class FirebaseListener:
             return
 
         print("new event")
+        print (event)
         print (event.data)
         commands = list(event.data.keys())
         
