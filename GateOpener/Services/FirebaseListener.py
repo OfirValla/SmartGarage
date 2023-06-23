@@ -49,13 +49,12 @@ class FirebaseListener:
         print (event.path)
         print (event.event_type)
         print (event.data)
-        commands = list(event.data.keys())
         
-        if "placeholder" in commands:
+        if "placeholder" == event.data['type']:
             return
         
         request = GateRequest(
-            type= event.data[commands[0]]['type']   
+            type= event.data['type']   
         )
 
         # If multiple commands arrive execute only once
@@ -66,13 +65,13 @@ class FirebaseListener:
             t.start()
 
 
-        # Delete all existing commands
-        for key in commands:
-            # Skip placeholder key that keeps the gate-controller reference visible in ui
-            if key == "placeholder":
-                continue
+        ## Delete all existing commands
+        #for key in commands:
+        #    # Skip placeholder key that keeps the gate-controller reference visible in ui
+        #    if key == "placeholder":
+        #        continue
 
-            db.reference('gate-controller', app= self.app).child(key).delete()
+        #    db.reference('gate-controller', app= self.app).child(key).delete()
    
     # ------------------------------------------------------------------ #
 
