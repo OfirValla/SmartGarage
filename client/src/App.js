@@ -23,13 +23,11 @@ function App() {
     if (!user && !loading) state = 'not-authed';
     if (error) state = 'error';
 
-    console.log({user, loading, state})
+    console.debug({ user, loading, state });
     const Component = ComponentSelector[state];
     return (
-        <div className="App">
-            <header className="App-header">
-                <Component />
-            </header>
+        <div className="App grid-center">
+            <Component />
         </div>
     );
 }
