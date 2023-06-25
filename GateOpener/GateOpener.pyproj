@@ -22,6 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="camera_feed.py" />
     <Compile Include="GateOpener.py" />
     <Compile Include="GateRadioController.py" />
     <Compile Include="Models\GateRequest.py" />
@@ -39,6 +40,7 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="gate-code.txt" />
     <Content Include="Models\User.py" />
     <Content Include="requirements.txt" />
     <Content Include="Services\DiscordSender.py" />
