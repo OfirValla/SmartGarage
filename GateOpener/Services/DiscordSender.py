@@ -4,11 +4,11 @@ from Models.User import User
 
 # ------------------------------------------------------------------ #
 
-DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1121568312497815592/WPeizK4WAC7UjGhdUFtDbdL4ikpZc9r7P9dIP4Ltr7YPKD8i2hFHSHBkT6DlTVmrK7QK'
+DISCORD_WEBHOOK: str = 'https://discord.com/api/webhooks/1121568312497815592/WPeizK4WAC7UjGhdUFtDbdL4ikpZc9r7P9dIP4Ltr7YPKD8i2hFHSHBkT6DlTVmrK7QK'
 
 # ------------------------------------------------------------------ #
 
-def send_discord_message(user: User, title: str, content: str):
+def send_discord_message(user: User, title: str, content: str) -> None:
     webhook = DiscordWebhook(url=DISCORD_WEBHOOK, username='GateController')
     
     webhook.avatar_url = user.photo

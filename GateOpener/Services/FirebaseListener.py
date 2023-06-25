@@ -40,7 +40,7 @@ class FirebaseListener:
 
     # ------------------------------------------------------------------ #
 
-    def __remove_old_commands(self):
+    def __remove_old_commands(self) -> None:
         print("Removing old commands")
         keys = list(db.reference("gate-controller/commands", app=self.app).get().keys())
         for key in keys:
@@ -52,7 +52,7 @@ class FirebaseListener:
 
     # ------------------------------------------------------------------ #
 
-    def __authed_users_listener(self, event: db.Event):
+    def __authed_users_listener(self, event: db.Event) -> None:
         if event.event_type == "put":
             self.authed_users = event.data
             return
@@ -64,7 +64,7 @@ class FirebaseListener:
 
     # ------------------------------------------------------------------ #
 
-    def __listener(self, event: db.Event):
+    def __listener(self, event: db.Event) -> None:
         if not event.data:
             return
 
@@ -96,7 +96,7 @@ class FirebaseListener:
 
     # ------------------------------------------------------------------ #
 
-    def __execute_command(self, request: GateRequest):
+    def __execute_command(self, request: GateRequest) -> None:
         self.is_running_command = True
         print(f" * Executing command: {Fore.LIGHTYELLOW_EX}{request.type}{Style.RESET_ALL}")
         self.on_command(request)

@@ -12,12 +12,12 @@ import sys
 
 # ------------------------------------------------------------------ #
 
-def __open_or_close(user: User, **_):
+def __open_or_close(user: User, **_) -> None:
     send_discord_message(user, 'Open or Close', 'Openning or Closing the gate')
     operate_gate()
 
 
-def __open_and_close(user: User, delay_in_seconds: int = 90, **_):
+def __open_and_close(user: User, delay_in_seconds: int = 90, **_) -> None:
     send_discord_message(user, 'Open', 'Openning the gate')
     operate_gate()
 
@@ -34,7 +34,7 @@ requests = {
 
 # ------------------------------------------------------------------ #
 
-def on_command(request: GateRequest):
+def on_command(request: GateRequest) -> None:
     requests[request.type](user= request.user, **request.data)
 
 # ------------------------------------------------------------------ #

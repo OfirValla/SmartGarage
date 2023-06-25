@@ -9,7 +9,7 @@ GPIO.setup(_gpio, GPIO.OUT)
 
 # ------------------------------------------------------------------ #
 
-def _sleep_microseconds(ms):
+def _sleep_microseconds(ms: int) -> None:
     delayInSeconds = ms / 1000000
     _delayInSeconds = delayInSeconds / 100
     end = time.time() + delayInSeconds - _delayInSeconds
@@ -18,7 +18,7 @@ def _sleep_microseconds(ms):
 
 # ------------------------------------------------------------------ #
 
-def _pulse(high, low):
+def _pulse(high: int, low: int) -> None:
     GPIO.output(_gpio, GPIO.HIGH)
     _sleep_microseconds(high)
     GPIO.output(_gpio, GPIO.LOW)
@@ -26,7 +26,7 @@ def _pulse(high, low):
 
 # ------------------------------------------------------------------ #
 
-def _send_code():
+def _send_code() -> None:
     _pulse(320, 320)
     _pulse(676, 320)
     _pulse(676, 320)
@@ -43,7 +43,7 @@ def _send_code():
 
 # ------------------------------------------------------------------ #
 
-def operate_gate():
+def operate_gate() -> None:
     print("Open/Close gate")
 
     for _ in range(0, 20):
@@ -51,5 +51,5 @@ def operate_gate():
 
 # ------------------------------------------------------------------ #
 
-def cleanup():
+def cleanup() -> None:
     GPIO.cleanup()
