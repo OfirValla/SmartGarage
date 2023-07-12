@@ -19,7 +19,6 @@ FROM base as final
 WORKDIR /app
 COPY --from=git-pull /app/GateController/GateStatus .
 
-COPY requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 CMD ["python3", "-u", "./main.py"]
