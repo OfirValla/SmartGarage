@@ -1,0 +1,5 @@
+discord-webhook==1.1.0
+colorama==0.4.6
+numpy==1.23.5
+opencv-python==4.7.0.72
+tensorflow==2.12.0
