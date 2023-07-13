@@ -14,7 +14,7 @@ import firebase_admin
 
 class FirebaseListener:
     def __init__(self, on_command):
-        json_path = "valla-projects-firebase-adminsdk-3ogbz-2ec52a9c7b.json"
+        json_path = "valla-projects-5bf43e08d8a1.json"
         project_id = "valla-projects"
         options = {"databaseURL": "https://valla-projects-default-rtdb.firebaseio.com"}
 
