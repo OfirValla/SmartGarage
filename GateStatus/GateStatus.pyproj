@@ -40,7 +40,6 @@
   <ItemGroup>
     <Content Include=".dockerignore" />
     <Content Include="Dockerfile" />
-    <Content Include="DockerPublish.bat" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
