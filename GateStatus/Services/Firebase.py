@@ -6,12 +6,16 @@ from Models.Status import Status
 
 import firebase_admin
 import dataclasses
+import os
 
 # ------------------------------------------------------------------ #
 
+
 class Firebase:
     def __init__(self):
-        json_path = "valla-projects-gate-controller.json"
+        access_key_path = os.getenv('ACCESS_KEY_PATH')
+
+        json_path = os.path.join(access_key_path, "valla-projects-gate-controller.json")
         project_id = "valla-projects"
         options = {"databaseURL": "https://valla-projects-default-rtdb.firebaseio.com"}
 
