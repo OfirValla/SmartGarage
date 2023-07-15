@@ -51,6 +51,10 @@ def main():
         
         class_name, confidence_score = model.predict(frame)
 
+        # Skip predictions with lower than 75% confidence
+        if confidence_score < 75:
+            continue
+
         # On prediction change send alert to discord
         if last_status != class_name:
             if class_name == 'Opening|Closing' and last_status == 'Open':
