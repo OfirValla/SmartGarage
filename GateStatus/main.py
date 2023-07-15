@@ -57,18 +57,19 @@ def main():
 
         # On prediction change send alert to discord
         if last_status != class_name:
+            current_status = class_name
             if class_name == 'Opening|Closing' and last_status == 'Open':
-                class_name = 'Closing'
+                current_status = 'Closing'
             elif class_name == 'Opening|Closing' and last_status == 'Closed':
-                class_name = 'Opening'
-
+                current_status = 'Opening'
             last_status = class_name
+
             print(datetime.now())
-            print(f"Class: {class_name}")
+            print(f"Class: {current_status}")
             print(f"Confidence Score: {str(confidence_score)[:-2]}%")
             
             new_status = Status(
-                current_status= class_name, 
+                current_status= current_status, 
                 confidence_score= int(str(confidence_score)[:-2]),
                 timestamp= time.time()
             )
