@@ -11,8 +11,6 @@ WORKDIR /app
 COPY --from=git-pull /app/GateController/GateOpener .
 
 #RUN apt-get -y install gcc
-
-RUN pip3 install --upgrade pip3
 RUN pip3 install setuptools rpi.gpio
 RUN pip3 install --no-cache-dir -r requirements.txt
 
