@@ -29,3 +29,4 @@ services:
 
 volumes:
   home_projects:
+    external: true
