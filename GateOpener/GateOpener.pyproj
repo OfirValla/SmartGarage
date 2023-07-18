@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>724c6e60-063b-4230-8f90-79cc4843227e</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>GateOpener.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GateOpener.py" />
+    <Compile Include="main.py" />
     <Compile Include="GateRadioController.py" />
     <Compile Include="Models\GateRequest.py" />
     <Compile Include="Services\FirebaseListener.py" />
