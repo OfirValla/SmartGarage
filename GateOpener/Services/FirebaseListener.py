@@ -11,10 +11,13 @@ from Models.User import User
 from Services.DiscordSender import send_discord_message
 
 import firebase_admin
+import os
 
 class FirebaseListener:
     def __init__(self, on_command):
-        json_path = "valla-projects-gate-controller.json"
+        access_key_path = os.getenv('ACCESS_KEY_PATH')
+
+        json_path = os.path.join(access_key_path, "valla-projects-gate-controller.json")
         project_id = "valla-projects"
         options = {"databaseURL": "https://valla-projects-default-rtdb.firebaseio.com"}
 

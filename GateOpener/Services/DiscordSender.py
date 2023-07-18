@@ -2,9 +2,11 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 
 from Models.User import User
 
+import os
+
 # ------------------------------------------------------------------ #
 
-DISCORD_WEBHOOK: str = 'https://discord.com/api/webhooks/1121568312497815592/WPeizK4WAC7UjGhdUFtDbdL4ikpZc9r7P9dIP4Ltr7YPKD8i2hFHSHBkT6DlTVmrK7QK'
+DISCORD_WEBHOOK: str = os.getenv('DISCORD_WEBHOOK')
 
 # ------------------------------------------------------------------ #
 
