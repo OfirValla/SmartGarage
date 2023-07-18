@@ -10,8 +10,10 @@ FROM python:3.11-slim as final
 WORKDIR /app
 COPY --from=git-pull /app/GateController/GateOpener .
 
-RUN pip3 install setuptools
-RUN pip3 install rpi.gpio
+RUN apt-get -y install gcc
+
+RUN pip3 install --upgrade pip3
+RUN pip3 install setuptools rpi.gpio
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 CMD ["python3", "-u", "./main.py"]
