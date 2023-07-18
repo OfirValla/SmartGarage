@@ -11,9 +11,9 @@ services:
     volumes:
       - HomeProjects:/app/resources:ro
     environment:
-      - DISCORD_WEBHOOK=CONTROLLER_DISCORD
-      - RTSP_URL=RTSP_URL
-      - ACCESS_KEY_PATH=ACCESS_KEY_PATH
+      - DISCORD_WEBHOOK=$CONTROLLER_DISCORD
+      - RTSP_URL=$RTSP_URL
+      - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
 
   gate-status:
     build:
@@ -23,9 +23,9 @@ services:
     volumes:
       - HomeProjects:/app/resources:ro
     environment:
-      - DISCORD_WEBHOOK=STATUS_DISCORD
-      - RTSP_URL=RTSP_URL
-      - ACCESS_KEY_PATH=ACCESS_KEY_PATH
+      - DISCORD_WEBHOOK=$STATUS_DISCORD
+      - RTSP_URL=$RTSP_URL
+      - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
 
 volumes:
   HomeProjects:
