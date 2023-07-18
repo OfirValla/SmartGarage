@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  gate-controller:
+    build:
+      context: GateOpener
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - HomeProjects:/app/resources:ro
+    environment:
+      - DISCORD_WEBHOOK=CONTROLLER_DISCORD
+      - RTSP_URL=RTSP_URL
+      - ACCESS_KEY_PATH=ACCESS_KEY_PATH
+
+  gate-status:
+    build:
+      context: GateStatus
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - HomeProjects:/app/resources:ro
+    environment:
+      - DISCORD_WEBHOOK=STATUS_DISCORD
+      - RTSP_URL=RTSP_URL
+      - ACCESS_KEY_PATH=true
+
+volumes:
+  HomeProjects:
