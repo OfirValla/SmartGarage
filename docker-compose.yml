@@ -6,6 +6,8 @@ services:
       context: GateController
       dockerfile: Dockerfile
     restart: unless-stopped
+    devices:
+      - /dev/gpiomem:/dev/gpiomem
     volumes:
       - HomeProjects:/app/resources:ro
     environment:
