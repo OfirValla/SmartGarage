@@ -8,7 +8,7 @@ RUN git clone https://github.com/OfirValla/GateController.git && cd /app/GateCon
 FROM python:3.11 as final
 
 WORKDIR /app
-COPY --from=git-pull /app/GateController/GateOpener .
+COPY --from=git-pull /app/GateController/GateController .
 
 #RUN apt-get -y install gcc
 RUN pip3 install setuptools rpi.gpio
