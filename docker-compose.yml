@@ -3,7 +3,7 @@ version: '3.9'
 services:
   gate-controller:
     build:
-      context: GateOpener
+      context: GateController
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
