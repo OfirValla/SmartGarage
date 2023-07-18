@@ -26,3 +26,6 @@ services:
       - DISCORD_WEBHOOK=$STATUS_DISCORD
       - RTSP_URL=$RTSP_URL
       - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
+
+volumes:
+  home_projects:
