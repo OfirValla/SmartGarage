@@ -46,8 +46,10 @@ def _send_code() -> None:
 def operate_gate() -> None:
     print("Open/Close gate")
 
-    for _ in range(0, 20):
-        _send_code()
+    _send_code()
+
+    #for _ in range(0, 20):
+    #    _send_code()
 
 # ------------------------------------------------------------------ #
 
