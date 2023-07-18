@@ -9,7 +9,7 @@ services:
     devices:
       - /dev/gpiomem:/dev/gpiomem
     volumes:
-      - HomeProjects:/app/resources:ro
+      - home_projects:/app/resources:ro
     environment:
       - DISCORD_WEBHOOK=$CONTROLLER_DISCORD
       - RTSP_URL=$RTSP_URL
@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
-      - HomeProjects:/app/resources:ro
+      - home_projects:/app/resources:ro
     environment:
       - DISCORD_WEBHOOK=$STATUS_DISCORD
       - RTSP_URL=$RTSP_URL
