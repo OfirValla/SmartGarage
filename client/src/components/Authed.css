@@ -50,3 +50,8 @@
         font-weight: bold;
         user-select: none;
     }
+
+.gate-status {
+    font-size: .75em;
+    color: #a7a7a7;
+}
