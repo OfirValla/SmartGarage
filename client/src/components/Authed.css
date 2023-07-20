@@ -55,3 +55,7 @@
     font-size: .75em;
     color: #a7a7a7;
 }
+
+.gate-status .error {
+    color: red;
+}

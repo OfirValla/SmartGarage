@@ -12,7 +12,7 @@ const Authed = () => {
     const [user, ,] = useAuthState(auth);
 
     const [snapshot, loading, error] = useObject(ref(db, 'gate-controller/status/current_status'));
-    
+   
     console.debug(user.displayName, user.email, user.photoURL);
     // Listen to gate status using firebase
 
@@ -41,7 +41,8 @@ const Authed = () => {
             </div>
             <div className="gate-status grid-center">
                 <span>Gate Status</span>
-                <span>{snapshot.val()}</span>
+                <span>{loading ? "Loading..." : snapshot.val()}</span>
+                <span className="error">{error}</span>
             </div>
         </div>
     );
