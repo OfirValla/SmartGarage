@@ -11,12 +11,12 @@ RUN apt-get -y update && apt-get install -y git
 
 WORKDIR /app
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-RUN git clone https://github.com/OfirValla/GateController.git && cd /app/GateController && git pull
+RUN git clone https://github.com/OfirValla/SmartGate.git && cd /app/SmartGate && git pull
 
 FROM base as final
 
 WORKDIR /app
-COPY --from=git-pull /app/GateController/GateStatus .
+COPY --from=git-pull /app/SmartGate/GateStatus .
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
