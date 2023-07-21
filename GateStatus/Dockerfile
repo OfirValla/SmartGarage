@@ -10,6 +10,7 @@ FROM python:3.11-slim as git-pull
 RUN apt-get -y update && apt-get install -y git
 
 WORKDIR /app
+ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone https://github.com/OfirValla/GateController.git && cd /app/GateController && git pull
 
 FROM base as final
