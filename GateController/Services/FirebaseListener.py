@@ -81,6 +81,9 @@ class FirebaseListener:
         
         request = from_dict(data_class= GateRequest, data= event.data)
 
+        # Delete command
+        db.reference(f"gate-controller/commands{event.path}", app=self.app).delete()
+
         # Check if the user is authed
         if request.user.email not in self.authed_users:
             print(f"{Fore.LIGHTRED_EX}{request.user.email} is not authorized{Style.RESET_ALL}")
@@ -93,10 +96,7 @@ class FirebaseListener:
             t = Thread(target=self.__execute_command, args=(request,))
             t.daemon = True
             t.start()
-
-        # Delete command
-        db.reference(f"gate-controller/commands{event.path}", app=self.app).delete()
-
+            
     # ------------------------------------------------------------------ #
 
     def __execute_command(self, request: GateRequest) -> None:
