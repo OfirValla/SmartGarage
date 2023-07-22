@@ -15,6 +15,9 @@ services:
       - RTSP_URL=$RTSP_URL
       - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
       - TZ=$TZ
+    networks:
+      - host
+      - smart-gate
 
   gate-status:
     build:
@@ -28,6 +31,14 @@ services:
       - RTSP_URL=$RTSP_URL
       - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
       - TZ=$TZ 
+    networks:
+      - smart-gate
+
+networks:
+  host:
+    external: true
+  smart-gate:
+    driver: bridge
 
 volumes:
   home_projects:
