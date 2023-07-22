@@ -1,8 +1,5 @@
 FROM python:3.11-slim as git-pull
 
-ARG TZ
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 RUN apt-get -y update && apt-get install -y git
 
 WORKDIR /app
@@ -14,7 +11,9 @@ FROM python:3.11 as final
 WORKDIR /app
 COPY --from=git-pull /app/SmartGate/GateController .
 
+RUN chmod +x /entrypoint.sh
 RUN pip3 install setuptools rpi.gpio
 RUN pip3 install --no-cache-dir -r requirements.txt
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["python3", "-u", "./main.py"]

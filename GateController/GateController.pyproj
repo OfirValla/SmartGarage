@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dockerfile" />
+    <Content Include="entrypoint.sh" />
     <Content Include="gate-code.txt" />
     <Content Include="Models\User.py" />
     <Content Include="requirements.txt" />

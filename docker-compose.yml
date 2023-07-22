@@ -5,8 +5,6 @@ services:
     build:
       context: GateController
       dockerfile: Dockerfile
-      args:
-        - TZ=$TZ 
     restart: unless-stopped
     devices:
       - /dev/gpiomem:/dev/gpiomem
@@ -16,7 +14,7 @@ services:
       - DISCORD_WEBHOOK=$CONTROLLER_DISCORD
       - RTSP_URL=$RTSP_URL
       - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
-    
+      - TZ=$TZ
 
   gate-status:
     build:
