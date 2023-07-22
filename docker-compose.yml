@@ -5,6 +5,7 @@ services:
     build:
       context: GateController
       dockerfile: Dockerfile
+    network_mode: host
     restart: unless-stopped
     devices:
       - /dev/gpiomem:/dev/gpiomem
@@ -15,10 +16,7 @@ services:
       - RTSP_URL=$RTSP_URL
       - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
       - TZ=$TZ
-    networks:
-      - host
-      - smart-gate
-
+    
   gate-status:
     build:
       context: GateStatus
@@ -31,14 +29,6 @@ services:
       - RTSP_URL=$RTSP_URL
       - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
       - TZ=$TZ 
-    networks:
-      - smart-gate
-
-networks:
-  host:
-    external: true
-  smart-gate:
-    driver: bridge
 
 volumes:
   home_projects:
