@@ -11,7 +11,7 @@ FROM python:3.11 as final
 WORKDIR /app
 COPY --from=git-pull /app/SmartGate/GateController .
 
-RUN chmod +x /entrypoint.sh
+RUN chmod +x entrypoint.sh
 RUN pip3 install setuptools rpi.gpio
 RUN pip3 install --no-cache-dir -r requirements.txt
 

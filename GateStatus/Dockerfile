@@ -15,7 +15,7 @@ FROM base as final
 WORKDIR /app
 COPY --from=git-pull /app/SmartGate/GateStatus .
 
-RUN chmod +x /entrypoint.sh
+RUN chmod +x entrypoint.sh
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 ENTRYPOINT ["/entrypoint.sh"]
