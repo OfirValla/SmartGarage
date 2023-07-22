@@ -22,8 +22,6 @@ services:
     build:
       context: GateStatus
       dockerfile: Dockerfile
-      args:
-        - TZ=$TZ 
     restart: unless-stopped
     volumes:
       - home_projects:/app/resources:ro
@@ -31,6 +29,7 @@ services:
       - DISCORD_WEBHOOK=$STATUS_DISCORD
       - RTSP_URL=$RTSP_URL
       - ACCESS_KEY_PATH=$ACCESS_KEY_PATH
+      - TZ=$TZ 
 
 volumes:
   home_projects:

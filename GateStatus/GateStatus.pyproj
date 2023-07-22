@@ -44,6 +44,7 @@
   <ItemGroup>
     <Content Include=".dockerignore" />
     <Content Include="Dockerfile" />
+    <Content Include="entrypoint.sh" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
