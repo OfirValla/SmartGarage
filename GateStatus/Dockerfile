@@ -1,9 +1,9 @@
 FROM python:3.11-slim as base
 
-RUN apt-get -y update && apt-get install -y ffmpeg 
-RUN apt-get install -y libsm6 
-RUN apt-get install -y libxext6 
-RUN apt-get install -y iputils-ping
+ARG TZ
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get -y update && apt-get install -y ffmpeg libsm6 libxext6 iputils-ping
 
 FROM python:3.11-slim as git-pull
 

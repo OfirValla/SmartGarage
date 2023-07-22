@@ -1,5 +1,8 @@
 FROM python:3.11-slim as git-pull
 
+ARG TZ
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get -y update && apt-get install -y git
 
 WORKDIR /app
