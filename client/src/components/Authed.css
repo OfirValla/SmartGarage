@@ -54,6 +54,7 @@
 .gate-status {
     font-size: .75em;
     color: #a7a7a7;
+    user-select: none;
 }
 
 .gate-status .error {
