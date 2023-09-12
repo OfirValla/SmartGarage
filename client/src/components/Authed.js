@@ -8,6 +8,13 @@ import { auth, db } from '../firebase';
 
 import './Authed.css';
 
+const statusToButtonText = {
+    'Open': 'CLOSE',
+    'Opening': 'CLOSE',
+    'Closed': 'OPEN',
+    'Closing': 'OPEN'
+}
+
 const Authed = () => {
     const [user, ,] = useAuthState(auth);
 
@@ -34,14 +41,18 @@ const Authed = () => {
         );
     };
 
+    const gateStatus = loading ? "Loading..." : snapshot.val();
+
+    // Open / Closed / Opening / Closing
+
     return (
         <div className="grid-center">
             <div className="gate-button grid-center" onClick={onClick}>
-                <span>OPEN GATE</span>
+                <span>{statusToButtonText[gateStatus]} GATE</span>
             </div>
             <div className="gate-status grid-center">
                 <span>Gate Status</span>
-                <span>{loading ? "Loading..." : snapshot.val()}</span>
+                <span>{gateStatus}</span>
                 <span className="error">{error}</span>
             </div>
         </div>
