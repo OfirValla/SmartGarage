@@ -23,7 +23,6 @@
     .gate-button:before {
         content: "";
         display: block;
-        background: linear-gradient(360deg, #365b28 0%, #65b232 67%);
         /*border-top: 2px solid #ddd;*/
         position: absolute;
         top: -18px;
@@ -33,6 +32,16 @@
         z-index: -1;
         border-radius: 50%;
         /*box-shadow: inset 0px 8px 48px #ddd;*/
+    }
+
+    .gate-button.program-online:before {
+        background: linear-gradient(360deg, #365b28 0%, #65b232 67%);
+    }
+
+    .gate-button.program-offline:before {
+        background: linear-gradient(360deg, #ff0404 0%, #ff4848 67%);
+        pointer-events: none;
+        user-select: none;
     }
 
     .gate-button:active {
