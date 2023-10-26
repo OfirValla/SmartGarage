@@ -38,7 +38,7 @@ class FirebaseListener:
 
         self.__remove_old_commands()
 
-        print(f" * {Fore.LIGHTGREEN_EX}Starting program status report thread{Style.RESE}")
+        print(f" * {Fore.LIGHTGREEN_EX}Starting program status report thread{Style.RESET_ALL}")
         self.status_report_thread = Thread(target=self.__report_program_status_thread, args=())
         self.status_report_thread.daemon = True
         self.status_report_thread.start()
