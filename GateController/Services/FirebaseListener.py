@@ -11,6 +11,8 @@ from Models.User import User
 from Services.DiscordSender import send_discord_message
 
 import firebase_admin
+import datetime 
+import time
 import os
 
 class FirebaseListener:
@@ -35,6 +37,11 @@ class FirebaseListener:
 
         self.__remove_old_commands()
 
+        print(f" * {Fore.LIGHTGREEN_EX}Starting program status report thread{Style.RESET_ALL}")
+        self.status_report_thread = Thread(target=self.__report_program_status_thread, args=())
+        self.status_report_thread.daemon = True
+        self.status_report_thread.start()
+
         print(f"{Fore.LIGHTGREEN_EX}Start listening to events{Style.RESET_ALL}")
         db.reference("gate-controller/authed-users", app=self.app).listen(
             self.__authed_users_listener
@@ -52,6 +59,13 @@ class FirebaseListener:
 
             print(f" * {Fore.LIGHTRED_EX}Removing: {key}{Style.RESET_ALL}")
             db.reference("gate-controller/commands", app=self.app).child(key).delete()
+
+    # ------------------------------------------------------------------ #
+
+    def __report_program_status_thread(self) -> None:
+        while True:
+            db.reference(f"gate-controller/program_status", app=self.app).set(datetime.datetime.now())
+            time.sleep(3)
 
     # ------------------------------------------------------------------ #
 
