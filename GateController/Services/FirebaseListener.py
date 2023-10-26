@@ -11,6 +11,7 @@ from Models.User import User
 from Services.DiscordSender import send_discord_message
 
 import firebase_admin
+import dataclasses
 import datetime 
 import time
 import os
@@ -37,7 +38,7 @@ class FirebaseListener:
 
         self.__remove_old_commands()
 
-        print(f" * {Fore.LIGHTGREEN_EX}Starting program status report thread{Style.RESET_ALL}")
+        print(f" * {Fore.LIGHTGREEN_EX}Starting program status report thread{Style.RESE}")
         self.status_report_thread = Thread(target=self.__report_program_status_thread, args=())
         self.status_report_thread.daemon = True
         self.status_report_thread.start()
@@ -64,7 +65,7 @@ class FirebaseListener:
 
     def __report_program_status_thread(self) -> None:
         while True:
-            db.reference(f"gate-controller/program_status", app=self.app).set(datetime.datetime.now())
+            db.reference(f"gate-controller/program_status", app=self.app).set(datetime.datetime.now().isoformat())
             time.sleep(3)
 
     # ------------------------------------------------------------------ #
