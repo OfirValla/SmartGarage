@@ -23,7 +23,7 @@ const Authed = () => {
     const [user, ,] = useAuthState(auth);
 
     const [snapshot, loading, error] = useObject(ref(db, 'gate-controller/status/current_status'));
-    const [isOnlineSnapshot, isOnlineLoading, _] = useObject(ref(db, 'gate-controller/program_status'));
+    const [isOnlineSnapshot, isOnlineLoading, _] = useObject(ref(db, 'gate-controller/program-status'));
 
     console.debug(user.displayName, user.email, user.photoURL);
     

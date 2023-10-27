@@ -65,7 +65,7 @@ class FirebaseListener:
 
     def __report_program_status_thread(self) -> None:
         while True:
-            db.reference(f"gate-controller/program_status", app=self.app).set(datetime.datetime.now().isoformat())
+            db.reference(f"gate-controller/program-status", app=self.app).set(datetime.datetime.now().isoformat())
             time.sleep(3)
 
     # ------------------------------------------------------------------ #
