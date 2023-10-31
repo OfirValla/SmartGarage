@@ -29,17 +29,6 @@
     <Compile Include="Services\FirebaseListener.py" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="env\">
-      <Id>env</Id>
-      <Version>3.11</Version>
-      <Description>env (Python 3.11 (64-bit))</Description>
-      <InterpreterPath>Scripts\python.exe</InterpreterPath>
-      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
-      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
-      <Architecture>X64</Architecture>
-    </Interpreter>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Dockerfile" />
     <Content Include="entrypoint.sh" />
     <Content Include="gate-code.txt" />
@@ -50,6 +39,17 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.11</Version>
+      <Description>env (Python 3.11 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -22,6 +22,9 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "TrainModel", "TrainModel\TrainModel.pyproj", "{5FD2A68C-C91D-4F5A-A739-30EA5A61728D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{99E8A5D2-C9FB-490A-8E57-17FCBCF792B7}"
+	ProjectSection(SolutionItems) = preProject
+		database.rules = database.rules
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "gate-controller": {
+      "authed-users": {
+        ".read": false,
+        ".write": "auth !== null"
+      },
+      "commands": {
+        ".read": false,
+        ".write": "auth !== null && auth.token.email !== '' && root.child('gate-controller/authed-users').child(auth.token.email.replace('.', ',')).exists()"
+      },
+      "program-status": {
+        ".read": "auth !== null",
+        ".write": false
+      },
+      "status": {
+        ".read": "auth !== null",
+        ".write": false
+      }
+    },
+    ".read": false,
+    ".write": false,
+  }
+}

@@ -32,7 +32,7 @@ class FirebaseListener:
         )
         self.on_command = on_command
         self.is_running_command = False
-        self.authed_users = []
+        # self.authed_users = []
 
         print(f" * {Fore.LIGHTGREEN_EX}Connected{Style.RESET_ALL}")
 
@@ -44,9 +44,9 @@ class FirebaseListener:
         self.status_report_thread.start()
 
         print(f"{Fore.LIGHTGREEN_EX}Start listening to events{Style.RESET_ALL}")
-        db.reference("gate-controller/authed-users", app=self.app).listen(
-            self.__authed_users_listener
-        )
+        # db.reference("gate-controller/authed-users", app=self.app).listen(
+        #     self.__authed_users_listener
+        # )
         db.reference("gate-controller/commands", app=self.app).listen(self.__listener)
 
     # ------------------------------------------------------------------ #
@@ -70,15 +70,15 @@ class FirebaseListener:
 
     # ------------------------------------------------------------------ #
 
-    def __authed_users_listener(self, event: db.Event) -> None:
-        if event.event_type == "put":
-            self.authed_users = event.data
-            return
+    # def __authed_users_listener(self, event: db.Event) -> None:
+    #     if event.event_type == "put":
+    #         self.authed_users = event.data
+    #         return
 
-        # patch event
-        new_emails = list(event.data.values())
-        for email in new_emails:
-            self.authed_users.append(email)
+    #     # patch event
+    #     new_emails = list(event.data.values())
+    #     for email in new_emails:
+    #         self.authed_users.append(email)
 
     # ------------------------------------------------------------------ #
 
@@ -99,11 +99,11 @@ class FirebaseListener:
         # Delete command
         db.reference(f"gate-controller/commands{event.path}", app=self.app).delete()
 
-        # Check if the user is authed
-        if request.user.email not in self.authed_users:
-            print(f"{Fore.LIGHTRED_EX}{request.user.email} is not authorized{Style.RESET_ALL}")
-            send_discord_message(request.user, 'Un-authorized access', 'Not authorized to open or close the gate')
-            return
+        # # Check if the user is authed
+        # if request.user.email not in self.authed_users:
+        #     print(f"{Fore.LIGHTRED_EX}{request.user.email} is not authorized{Style.RESET_ALL}")
+        #     send_discord_message(request.user, 'Un-authorized access', 'Not authorized to open or close the gate')
+        #     return
         
         # If multiple commands arrive execute only once
         # Execute only one command
