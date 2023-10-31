@@ -10,11 +10,11 @@
         ".write": "auth !== null && auth.token.email !== '' && root.child('gate-controller/authed-users').child(auth.token.email.replace('.', ',')).exists()"
       },
       "program-status": {
-        ".read": "auth !== null",
+        ".read": "auth !== null && auth.token.email !== '' && root.child('gate-controller/authed-users').child(auth.token.email.replace('.', ',')).exists()",
         ".write": false
       },
       "status": {
-        ".read": "auth !== null",
+        ".read": "auth !== null && auth.token.email !== '' && root.child('gate-controller/authed-users').child(auth.token.email.replace('.', ',')).exists()",
         ".write": false
       }
     },
