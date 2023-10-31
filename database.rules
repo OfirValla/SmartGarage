@@ -3,7 +3,7 @@
     "gate-controller": {
       "authed-users": {
         ".read": false,
-        ".write": "auth !== null"
+        ".write": false
       },
       "commands": {
         ".read": false,
@@ -19,6 +19,6 @@
       }
     },
     ".read": false,
-    ".write": false,
+    ".write": false
   }
 }
