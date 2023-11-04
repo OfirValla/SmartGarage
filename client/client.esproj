@@ -12,6 +12,9 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\build</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\pages\" />
+    <TypeScriptConfiguration Remove="src\pages\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\pages\**" />
   </ItemGroup>
 </Project>

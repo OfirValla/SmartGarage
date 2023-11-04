@@ -9,8 +9,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { auth, db } from '../firebase';
 import { useInterval } from '../hooks/useInterval';
 
-import './Authed.css';
 import Loader from './Loader';
+
+import './Authed.css';
 
 const statusToButtonText = {
     'Open': 'CLOSE',
