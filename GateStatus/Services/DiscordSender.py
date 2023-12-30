@@ -23,15 +23,15 @@ def send_log_message(msg: str) -> None:
 
 # ------------------------------------------------------------------ #
 
-def send_status_update(status: Status, original_image, processed_image) -> None:
+def send_status_update(status: Status, original_image, processed_input) -> None:
     webhook = DiscordWebhook(url=DISCORD_WEBHOOK, rate_limit_retry=True, username='GateAI')
     webhook.add_file(file=original_image, filename='original.jpg')
-    webhook.add_file(file=processed_image, filename='processed.jpg')
+    webhook.add_file(file=processed_input.tobytes(), filename='processed_input.npy')
     
     embed = DiscordEmbed(title=f'Gate Status', color='fff38e')
     embed.add_embed_field('Status', status.current_status, inline= False)
     embed.add_embed_field('Confidence', f'{status.confidence_score}%', inline= False)
-    embed.set_thumbnail(url='attachment://gate.jpg')
+    embed.set_thumbnail(url='attachment://original.jpg')
     webhook.add_embed(embed)
 
     webhook.execute()

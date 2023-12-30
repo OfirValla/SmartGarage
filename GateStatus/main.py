@@ -41,15 +41,13 @@ def main():
 
         curr_time = time.time()
 
-        original_frame = frame
-        
-        frame, _ = model.preprocess_image(frame)
+        processed_input, _ = model.preprocess_image(frame)
         
         if curr_time - last_time < .5:
             continue
         last_time = curr_time
         
-        class_name, confidence_score = model.predict(frame)
+        class_name, confidence_score = model.predict(processed_input)
 
         # Skip predictions with lower than 75% confidence
         if confidence_score < 75:
@@ -74,7 +72,7 @@ def main():
                 timestamp= time.time()
             )
             firebase.update_status(new_status)
-            send_status_update(new_status, cv2.imencode('.jpg', original_frame)[1], cv2.imencode('.jpg', frame)[1])
+            send_status_update(new_status, cv2.imencode('.jpg', frame)[1], processed_input)
             
 # --------------------------------------------------------------------------------------------------- #
 
