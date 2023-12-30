@@ -20,6 +20,7 @@ const statusToButtonText = {
     'Closing': 'OPEN'
 };
 
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 const Authed = () => {
     const [isProgramOnline, setIsProgramOnline] = useState(false);
@@ -41,6 +42,9 @@ const Authed = () => {
 
     // Send open|close request to control the gate
     const onClick = () => {
+        if (navigator.vibrate) 
+            navigator.vibrate([200, 75, 200]);
+        
         set(
             ref(db, `gate-controller/commands/${uuidv4()}`),
             {
