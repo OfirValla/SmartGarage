@@ -74,7 +74,7 @@ def main():
                 timestamp= time.time()
             )
             firebase.update_status(new_status)
-            send_status_update(new_status, cv2.imencode('.jpg', original_frame)[1])
+            send_status_update(new_status, cv2.imencode('.jpg', original_frame)[1], cv2.imencode('.jpg', frame)[1])
             
 # --------------------------------------------------------------------------------------------------- #
 
