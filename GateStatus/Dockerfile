@@ -1,5 +1,7 @@
 FROM python:3.11-slim as base
 
+RUN apt-get install software-properties-common
+RUN add-apt-repository ppa:mc3man/trusty-media
 RUN apt-get -y update 
 RUN apt-get install -y ffmpeg 
 RUN apt-get install -y libsm6 
