@@ -60,9 +60,13 @@ class FirebaseListener:
     # ------------------------------------------------------------------ #
 
     def __report_program_status_thread(self) -> None:
-        while True:
-            db.reference(f"gate-controller/program-status", app=self.app).set(datetime.datetime.now().isoformat())
-            time.sleep(1)
+        try:
+            while True:
+                db.reference(f"gate-controller/program-status", app=self.app).set(datetime.datetime.now().isoformat())
+                time.sleep(1)
+        except:
+            # Using os._exit(1) instead of sys.exit(1) for killing the program more effectively
+            os._exit(1)
             
     # ------------------------------------------------------------------ #
 
