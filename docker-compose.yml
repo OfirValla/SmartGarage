@@ -1,7 +1,5 @@
 version: '3.9'
 
-name: smart-gate
-
 services:
   gate-controller:
     build:
