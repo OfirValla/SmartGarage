@@ -1,10 +1,10 @@
 FROM python:3.11-slim as base
 
-RUN apt-get -y update 
-RUN apt-get install -y ffmpeg 
-RUN apt-get install -y libsm6 
-RUN apt-get install -y libxext6 
-RUN apt-get install -y iputils-ping
+RUN apt-get -y -V update 
+RUN apt-get install -y -V ffmpeg 
+RUN apt-get install -y -V libsm6 
+RUN apt-get install -y -V libxext6 
+RUN apt-get install -y -V iputils-ping
 
 FROM python:3.11-slim as git-pull
 
