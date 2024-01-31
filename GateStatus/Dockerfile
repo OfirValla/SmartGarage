@@ -1,6 +1,6 @@
 FROM python:3.11-slim as base
 
-RUN apt-get -y -V update 
+RUN apt-get update 
 RUN apt-get install -y -V ffmpeg 
 RUN apt-get install -y -V libsm6 
 RUN apt-get install -y -V libxext6 
