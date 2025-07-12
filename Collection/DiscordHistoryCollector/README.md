@@ -76,4 +76,7 @@ To enable Label Studio integration:
 1. Set `LABEL_STUDIO_ENABLED=true`
 2. Provide your Label Studio API key
 3. Set the correct project ID
-4. Ensure Label Studio is running and accessible 
+4. Ensure Label Studio is running and accessible
+
+## License
+MIT 
