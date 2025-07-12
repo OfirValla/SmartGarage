@@ -32,6 +32,7 @@ The Smart Garage Collection System is designed to monitor and collect data from 
 2. **Live Camera Stream**: Real-time RTSP camera feed monitoring the garage
 3. **Data Storage**: MinIO object storage for images and SQLite for metadata
 4. **Data Labeling**: Optional Label Studio integration for image annotation
+5. **Dataset Management**: Organized storage and retrieval of collected data for machine learning
 
 ## 🚀 Components
 
@@ -47,20 +48,22 @@ A Discord bot that collects historical message data from a specific channel. It 
 - Optional Label Studio integration for data labeling
 - Environment-based configuration for security
 
-**Use Case:** Historical data collection from Discord bot messages containing garage status updates with embedded images.
+**Use Case:** Historical data collection from Discord bot messages containing garage status updates with embedded images for dataset creation and analysis.
 
 ### LiveCollector
 
-A real-time camera stream processor that connects to an RTSP camera feed and continuously captures images.
+A real-time camera stream processor that connects to an RTSP camera feed and continuously captures images. Supports both local storage and MinIO cloud storage.
 
 **Key Features:**
 - Connects to RTSP camera streams
 - Saves images and grayscale versions
+- **MinIO/S3-compatible cloud storage support**
 - Threaded image processing for efficiency
 - Configurable output directory
 - Environment-based configuration
+- Graceful shutdown and error handling
 
-**Use Case:** Real-time monitoring of garage status through live camera feed.
+**Use Case:** Real-time monitoring of garage status through live camera feed for continuous dataset collection.
 
 ## 🛠️ Setup Instructions
 
@@ -126,7 +129,24 @@ A real-time camera stream processor that connects to an RTSP camera feed and con
 2. **Configure camera URL:**
    ```env
    CAMERA_URL=rtsp://your_camera_ip:port/stream
+   ```
+
+3. **Choose storage system:**
+
+   **Local Storage:**
+   ```env
+   STORAGE_SYSTEM=local
    OUTPUT_DIR=./output
+   ```
+
+   **MinIO Storage:**
+   ```env
+   STORAGE_SYSTEM=minio
+   MINIO_ENDPOINT=localhost:9000
+   MINIO_ACCESS_KEY=your_access_key
+   MINIO_SECRET_KEY=your_secret_key
+   MINIO_BUCKET=garage
+   MINIO_SECURE=false
    ```
 
 ## 🚀 Usage
@@ -157,17 +177,18 @@ The application will:
 - Continuously capture and save images
 - Process images in threaded consumers
 - Save both color and grayscale versions
+- Store images locally or in MinIO cloud storage (configurable)
 
 ## 📊 Data Flow
 
 ```
-Discord Bot → DiscordHistoryCollector → MinIO Storage
+Discord Bot → DiscordHistoryCollector → MinIO Storage → Dataset
                                     ↓
                                 SQLite DB
                                     ↓
                               Label Studio (optional)
 
-RTSP Camera → LiveCollector → Local Storage
+RTSP Camera → LiveCollector → Local/MinIO Storage → Dataset
 ```
 
 ## 🔧 Database Schema
@@ -179,6 +200,8 @@ The DiscordHistoryCollector creates a SQLite database (`messages.db`) with the f
 - `gate_status_confidence`: Confidence percentage
 - `garage_occupancy`: Occupancy status
 - `timestamp`: Message creation timestamp
+
+This metadata is used for dataset organization and machine learning model training.
 
 ## 🔐 Security Notes
 
@@ -202,8 +225,10 @@ If enabled, the DiscordHistoryCollector will:
 
 Images are stored in MinIO buckets with organized structure:
 - Original Discord attachments
-- Processed images from live camera feed
+- Processed images from live camera feed (both components now support MinIO)
 - Metadata stored separately in SQLite
+- Dataset organization for machine learning workflows
+- Unified cloud storage for both historical and real-time data
 
 ## 📝 License
 
