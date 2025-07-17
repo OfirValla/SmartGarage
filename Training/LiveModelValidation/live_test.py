@@ -66,7 +66,7 @@ class LiveTester:
         os.makedirs(config.live_test_predictions_dir, exist_ok=True)
 
     def _find_latest_model_dir(self):
-        output_root = "output"
+        output_root = "../output"
         version_dirs = [d for d in os.listdir(output_root) if d.startswith("V")]
         if not version_dirs:
             raise FileNotFoundError("No versioned model directories found in output/")

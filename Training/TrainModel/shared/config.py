@@ -16,10 +16,6 @@ camera_width = int(os.getenv('CAMERA_WIDTH', 640))
 camera_height = int(os.getenv('CAMERA_HEIGHT', 480))
 camera_refresh_interval = int(os.getenv('CAMERA_REFRESH_INTERVAL', 100))
 
-# Offline testing configuration
-offline_test_interactive = os.getenv('OFFLINE_TEST_INTERACTIVE', 'false').lower() == 'true'
-offline_test_delay = float(os.getenv('OFFLINE_TEST_DELAY', 1))
-
 # Logging configuration
 log_level = os.getenv('LOG_LEVEL', 'INFO')
 
