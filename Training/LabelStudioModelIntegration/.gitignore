@@ -1,4 +1,3 @@
-# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -14,8 +13,6 @@ dist/
 *.egg-info/
 
 # Logs and outputs
-output/
-LiveTest/Predictions/
 *.tflite
 *.pb
 *.h5
@@ -33,11 +30,4 @@ LiveTest/Predictions/
 # OS-specific
 .DS_Store
 Thumbs.db
-Desktop.ini
-
-# Jupyter
-.ipynb_checkpoints
-
-# Misc
-*.bak
-*.swp 
+Desktop.ini 

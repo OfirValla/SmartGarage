@@ -1,0 +1,31 @@
+import os
+import json
+import tensorflow as tf
+import config
+
+BASE_OUTPUT_PATH = config.BASE_OUTPUT_PATH
+
+def get_latest_model_dir():
+    version_dirs = [d for d in os.listdir(BASE_OUTPUT_PATH) if d.startswith('V')]
+    if not version_dirs:
+        raise FileNotFoundError(f'No versioned model directories found in {BASE_OUTPUT_PATH}')
+    latest_version = sorted(version_dirs)[-1]
+    return os.path.join(BASE_OUTPUT_PATH, latest_version)
+
+LATEST_MODEL_DIR = get_latest_model_dir()
+MODEL_PATH = config.MODEL_PATH or os.path.join(LATEST_MODEL_DIR, 'garage_multi_output_model.tflite')
+GATE_LABELS_PATH = config.GATE_LABELS_PATH or os.path.join(LATEST_MODEL_DIR, 'gate_labels.json')
+PARKING_LABELS_PATH = config.PARKING_LABELS_PATH or os.path.join(LATEST_MODEL_DIR, 'parking_labels.json')
+
+with open(GATE_LABELS_PATH, 'r') as f:
+    gate_labels = json.load(f)
+with open(PARKING_LABELS_PATH, 'r') as f:
+    parking_labels = json.load(f)
+
+inv_gate_labels = {v: k for k, v in gate_labels.items()}
+inv_parking_labels = {v: k for k, v in parking_labels.items()}
+
+interpreter = tf.lite.Interpreter(model_path=MODEL_PATH)
+interpreter.allocate_tensors()
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details() 
