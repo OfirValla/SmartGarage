@@ -17,8 +17,8 @@ def train_model(model, train_dataset, val_dataset, epochs=10):
     print("✅ Training completed!")
     return history
 
-def export_model(model, gate_label_map, parking_label_map):
-    """Export model to SavedModel and TFLite formats, and save label maps as JSON."""
+def export_model(model, gate_label_map, parking_label_map, task_stats=None):
+    """Export model to SavedModel and TFLite formats, and save label maps and task statistics as JSON."""
     def __create_output_directory():
         """Create versioned output directory based on current date."""
         current_date = datetime.now()
@@ -47,6 +47,11 @@ def export_model(model, gate_label_map, parking_label_map):
     with open(os.path.join(output_dir, "parking_labels.json"), "w") as f:
         json.dump(parking_label_map, f)
 
+    # Save task statistics if provided
+    if task_stats:
+        with open(os.path.join(output_dir, "task_statistics.json"), "w") as f:
+            json.dump(task_stats.to_dict(), f, indent=2)
+
     # Save model summary to a text file
     summary_path = os.path.join(output_dir, "model_summary.txt")
     with open(summary_path, "w", encoding="utf-8") as f:
@@ -57,5 +62,6 @@ def export_model(model, gate_label_map, parking_label_map):
     print(f"   - TFLite: {tflite_path}")
     print(f"   - Gate labels: gate_labels.json")
     print(f"   - Parking labels: parking_labels.json")
+    print(f"   - Task statistics: task_statistics.json")
     
     return model_path, tflite_path

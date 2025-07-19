@@ -1,10 +1,43 @@
 import requests
 import tensorflow as tf
 from shared.label_studio_utils import LabelStudioManager
+from shared.task_statistics import TaskStatistics
 from shared import config
 
 IMAGE_SIZE = (640, 360)
 BATCH_SIZE = 16
+
+def get_task_statistics(ls_manager, gate_label_map, parking_label_map):
+    """Get detailed statistics about tasks."""
+    total_tasks = 0
+    labeled_tasks = 0
+    valid_tasks = 0
+    
+    for task in ls_manager.fetch_annotated_tasks():
+        total_tasks += 1
+        
+        if not task.get('is_labeled'):
+            continue
+            
+        labeled_tasks += 1
+        
+        img_url = task['data'].get('image')
+        annotations = task['annotations'][0]['result'] if task['annotations'] and task['annotations'][0].get('result') else []
+        
+        gate_status = None
+        parking_status = None
+        
+        for ann in annotations:
+            if ann.get('to_name') == 'image':
+                if ann.get('from_name') == 'gate_status':
+                    gate_status = ann['value']['choices'][0]
+                elif ann.get('from_name') == 'parking_status':
+                    parking_status = ann['value']['choices'][0]
+        
+        if img_url and gate_status and parking_status:
+            valid_tasks += 1
+    
+    return TaskStatistics(total_tasks, labeled_tasks, valid_tasks)
 
 def task_label_generator(ls_manager, gate_label_map, parking_label_map):
     """Generator that yields (url, gate_label, parking_label) for each valid annotated task."""
