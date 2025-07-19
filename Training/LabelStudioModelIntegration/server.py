@@ -1,6 +1,7 @@
 from label_studio_ml.api import init_app
 from garage_model import GarageModel
 
+# Initialize the Label Studio ML app
 app = init_app(GarageModel)
 
 if __name__ == "__main__":
