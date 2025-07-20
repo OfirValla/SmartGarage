@@ -10,9 +10,10 @@ def get_latest_model_dir():
     if not version_dirs:
         raise FileNotFoundError(f'No versioned model directories found in {BASE_OUTPUT_PATH}')
     latest_version = sorted(version_dirs)[-1]
-    return os.path.join(BASE_OUTPUT_PATH, latest_version)
+    latest_path = os.path.join(BASE_OUTPUT_PATH, latest_version)
+    return latest_path, latest_version
 
-LATEST_MODEL_DIR = get_latest_model_dir()
+LATEST_MODEL_DIR, LATEST_MODEL_VERSION = get_latest_model_dir()
 MODEL_PATH = config.MODEL_PATH or os.path.join(LATEST_MODEL_DIR, 'garage_multi_output_model.tflite')
 GATE_LABELS_PATH = config.GATE_LABELS_PATH or os.path.join(LATEST_MODEL_DIR, 'gate_labels.json')
 PARKING_LABELS_PATH = config.PARKING_LABELS_PATH or os.path.join(LATEST_MODEL_DIR, 'parking_labels.json')

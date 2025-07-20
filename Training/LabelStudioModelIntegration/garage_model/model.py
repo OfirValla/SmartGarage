@@ -4,7 +4,7 @@ from label_studio_ml.model import LabelStudioMLBase
 from .image_io import get_image_bytes, preprocess_image
 from .model_loader import (
     interpreter, input_details, output_details, inv_gate_labels, inv_parking_labels, 
-    get_latest_model_dir
+    get_latest_model_dir, LATEST_MODEL_VERSION
 )
 
 class GarageModel(LabelStudioMLBase):
@@ -13,7 +13,7 @@ class GarageModel(LabelStudioMLBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # Get current model version
-        self.model_version = get_latest_model_dir().split('/')[-1]  # Extract V1, V2, etc.
+        self.model_version = LATEST_MODEL_VERSION
         self.interpreter = interpreter
         self.input_details = input_details
         self.output_details = output_details
