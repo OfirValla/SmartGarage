@@ -8,22 +8,17 @@ IMAGE_SIZE = (640, 360)
 BATCH_SIZE = 16
 
 def get_task_statistics(ls_manager, gate_label_map, parking_label_map):
-    """Get detailed statistics about tasks."""
+    """Get statistics about tasks, including label choice counts."""
     total_tasks = 0
-    labeled_tasks = 0
-    valid_tasks = 0
-    
+    gate_status_counts = {label: 0 for label in gate_label_map.keys()}
+    parking_status_counts = {label: 0 for label in parking_label_map.keys()}
+
     for task in ls_manager.fetch_annotated_tasks():
         total_tasks += 1
-        
         if not task.get('is_labeled'):
             continue
-            
-        labeled_tasks += 1
         
-        img_url = task['data'].get('image')
         annotations = task['annotations'][0]['result'] if task['annotations'] and task['annotations'][0].get('result') else []
-        
         gate_status = None
         parking_status = None
         
@@ -33,11 +28,11 @@ def get_task_statistics(ls_manager, gate_label_map, parking_label_map):
                     gate_status = ann['value']['choices'][0]
                 elif ann.get('from_name') == 'parking_status':
                     parking_status = ann['value']['choices'][0]
-        
-        if img_url and gate_status and parking_status:
-            valid_tasks += 1
-    
-    return TaskStatistics(total_tasks, labeled_tasks, valid_tasks)
+        if gate_status in gate_status_counts:
+            gate_status_counts[gate_status] += 1
+        if parking_status in parking_status_counts:
+            parking_status_counts[parking_status] += 1
+    return TaskStatistics(total_tasks, gate_status_counts=gate_status_counts, parking_status_counts=parking_status_counts)
 
 def task_label_generator(ls_manager, gate_label_map, parking_label_map):
     """Generator that yields (url, gate_label, parking_label) for each valid annotated task."""
@@ -109,7 +104,3 @@ def split_dataset(dataset, num_samples, train_split=0.8):
     val_dataset = dataset.skip(train_size).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
     
     return train_dataset, val_dataset
-
-def count_samples(ls_manager, gate_label_map, parking_label_map):
-    """Count total number of labeled samples."""
-    return sum(1 for _ in task_label_generator(ls_manager, gate_label_map, parking_label_map)) 
