@@ -32,24 +32,26 @@ LabelStudioModelIntegration/
 ## Environment Variables
 Below are the variables you can set in your `.env` or `.env.example` file:
 
-| Variable              | Required? | Description                                                      | Example/Default                |
-|-----------------------|-----------|------------------------------------------------------------------|-------------------------------|
-| BASE_OUTPUT_PATH      | Optional  | Directory for model version folders                               | output                        |
-| MODEL_PATH            | Optional  | Path to TFLite model (auto-detects latest if not set)            |                               |
-| GATE_LABELS_PATH      | Optional  | Path to gate labels JSON (auto-detects latest if not set)        |                               |
-| PARKING_LABELS_PATH   | Optional  | Path to parking labels JSON (auto-detects latest if not set)     |                               |
-| MINIO_ENDPOINT        | Required  | MinIO/S3 endpoint URL                                            | localhost:9000         |
-| MINIO_ACCESS_KEY      | Required  | MinIO/S3 access key                                              | admin         |
-| MINIO_SECRET_KEY      | Required  | MinIO/S3 secret key                                              | minio_admin         |
-| MINIO_SECURE          | Optional  | Use HTTPS for MinIO connection                                   | false                         |
-| LABEL_STUDIO_URL      | Optional  | Label Studio server URL (for API integration)                    | http://localhost:8080/        |
-| LABEL_STUDIO_API_KEY  | Optional  | Label Studio API key (for API integration)                       |      |
+| Variable                 | Required? | Description                                                      | Example/Default                |
+|--------------------------|-----------|------------------------------------------------------------------|--------------------------------|
+| BASE_OUTPUT_PATH         | Optional  | Directory for model version folders                               | output                        |
+| MODEL_PATH               | Optional  | Path to TFLite model (auto-detects latest if not set)            |                                |
+| GATE_LABELS_PATH         | Optional  | Path to gate labels JSON (auto-detects latest if not set)        |                                |
+| PARKING_LABELS_PATH      | Optional  | Path to parking labels JSON (auto-detects latest if not set)     |                                |
+| MINIO_ENDPOINT           | Required  | MinIO/S3 endpoint URL                                            | localhost:9000                 |
+| MINIO_ACCESS_KEY         | Required  | MinIO/S3 access key                                              | admin                          |
+| MINIO_SECRET_KEY         | Required  | MinIO/S3 secret key                                              | minio_admin                    |
+| MINIO_SECURE             | Optional  | Use HTTPS for MinIO connection                                   | false                          |
+| LABEL_STUDIO_URL         | Optional  | Label Studio server URL (for API integration)                    | http://localhost:8080/         |
+| LABEL_STUDIO_API_KEY     | Optional  | Label Studio API key (for API integration)                       |                                |
+| LABEL_STUDIO_PROJECT_ID  | Optional  | Label Studio API key (for API integration)                       | 1                              |
 
 **Example .env.example:**
 ```
 # Label Studio API connection
 LABEL_STUDIO_URL=http://localhost:8080/  # replace with your IP!
 LABEL_STUDIO_API_KEY=label-studio-api-key
+LABEL_STUDIO_PROJECT_ID=1
 
 # Model and label paths (optional, will auto-detect latest if not set)
 BASE_OUTPUT_PATH=output
