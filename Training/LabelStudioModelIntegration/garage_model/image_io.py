@@ -41,6 +41,10 @@ def get_image_bytes(image_url, task):
         local_path = image_url[7:]
         with open(local_path, 'rb') as f:
             return f.read()
+    elif image_url.startswith('/'):
+        resp = requests.get(f"{config.LABEL_STUDIO_URL.rstrip('/')}{image_url}", headers={ "Authorization": f"Token {config.LABEL_STUDIO_API_KEY}" })
+        resp.raise_for_status()
+        return resp.content
     else:
         # Assume local path
         with open(image_url, 'rb') as f:

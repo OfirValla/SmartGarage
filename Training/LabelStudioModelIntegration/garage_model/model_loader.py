@@ -1,6 +1,5 @@
 import os
 import json
-import tensorflow as tf
 import config
 
 BASE_OUTPUT_PATH = config.BASE_OUTPUT_PATH
@@ -25,8 +24,3 @@ with open(PARKING_LABELS_PATH, 'r') as f:
 
 inv_gate_labels = {v: k for k, v in gate_labels.items()}
 inv_parking_labels = {v: k for k, v in parking_labels.items()}
-
-interpreter = tf.lite.Interpreter(model_path=MODEL_PATH)
-interpreter.allocate_tensors()
-input_details = interpreter.get_input_details()
-output_details = interpreter.get_output_details() 

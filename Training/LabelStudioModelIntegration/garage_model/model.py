@@ -1,13 +1,14 @@
+import config
 import logging
 import numpy as np
+import tensorflow as tf
 from label_studio_ml.model import LabelStudioMLBase
 from label_studio_sdk import Client
 from .image_io import get_image_bytes, preprocess_image
 from .model_loader import (
-    interpreter, input_details, output_details, inv_gate_labels, inv_parking_labels, 
-    get_latest_model_dir, LATEST_MODEL_VERSION
+    inv_gate_labels, inv_parking_labels, 
+    LATEST_MODEL_VERSION, MODEL_PATH
 )
-import config
 
 class GarageModel(LabelStudioMLBase):
     """Label Studio ML backend for garage gate and parking status prediction."""
@@ -15,15 +16,24 @@ class GarageModel(LabelStudioMLBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.ls = Client(url=config.LABEL_STUDIO_URL, api_key=config.LABEL_STUDIO_API_KEY)
-        self.project = self.ls.get_project(config.LABEL_STUDIO_PROJECT_ID) 
+        self.project = self.ls.get_project(config.LABEL_STUDIO_PROJECT_ID)
 
-        # Get current model version
         self.model_version = LATEST_MODEL_VERSION
-        self.interpreter = interpreter
-        self.input_details = input_details
-        self.output_details = output_details
+
+        # ✅ Each instance gets its own interpreter
+        self.interpreter = tf.lite.Interpreter(
+            model_path=MODEL_PATH,
+            # experimental_delegates=[
+            #     tf.lite.experimental.load_delegate('libtensorflowlite_gpu_delegate.so')
+            # ]
+        )
+        self.interpreter.allocate_tensors()
+        self.input_details = self.interpreter.get_input_details()
+        self.output_details = self.interpreter.get_output_details()
+
         self.inv_gate_labels = inv_gate_labels
         self.inv_parking_labels = inv_parking_labels
+
     
     def predict(self, tasks, **kwargs):
         results = []
@@ -38,8 +48,12 @@ class GarageModel(LabelStudioMLBase):
                 img = preprocess_image(image_bytes)
                 self.interpreter.set_tensor(self.input_details[0]['index'], img)
                 self.interpreter.invoke()
-                parking_pred = self.interpreter.get_tensor(self.output_details[0]['index'])[0]
-                gate_pred = self.interpreter.get_tensor(self.output_details[1]['index'])[0]
+
+                parking_pred_tensor = self.interpreter.get_tensor(self.output_details[0]['index']).copy()
+                gate_pred_tensor = self.interpreter.get_tensor(self.output_details[1]['index']).copy()
+
+                parking_pred = parking_pred_tensor[0]
+                gate_pred = gate_pred_tensor[0]
                 gate_label_idx = int(np.argmax(gate_pred))
                 parking_label_idx = int(np.argmax(parking_pred))
                 gate_label = self.inv_gate_labels.get(gate_label_idx, str(gate_label_idx))
@@ -93,6 +107,7 @@ class GarageModel(LabelStudioMLBase):
                 })
             except Exception as e:
                 logging.error(f'Prediction error for task {task.get("id")}: {e}')
+                logging.error(e)
                 results.append({
                     'result': [],
                     'extra': {'error': str(e)},
