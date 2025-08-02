@@ -163,6 +163,7 @@ cython_debug/
 #.idea/
 /GateOpener/valla-projects-5bf43e08d8a1.json
 
+models/*
 
 *.jpg
 *.png
