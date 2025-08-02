@@ -23,7 +23,7 @@ def export_model(model, gate_label_map, parking_label_map, task_stats=None):
         """Create versioned output directory based on current date."""
         current_date = datetime.now()
         version = f"V{current_date.day}.{current_date.month}.{current_date.year}"
-        output_dir = os.path.join("../output", version)
+        output_dir = os.path.join("../../models", version)
         os.makedirs(output_dir, exist_ok=True)
         return output_dir 
 
