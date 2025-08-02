@@ -29,8 +29,8 @@ def validate_config() -> None:
         raise ValueError("CAMERA_URL must be a valid URL starting with rtsp://, rtsps://, http://, or https://")
     
     # Validate storage system
-    if STORAGE_SYSTEM not in ["local", "minio"]:
-        raise ValueError("STORAGE_SYSTEM must be either 'local' or 'minio'")
+    if STORAGE_SYSTEM not in ["local", "minio", "none"]:
+        raise ValueError("STORAGE_SYSTEM must be either 'local' or 'minio' or 'none'")
     
     # Validate MinIO configuration if using MinIO storage
     if STORAGE_SYSTEM == "minio":

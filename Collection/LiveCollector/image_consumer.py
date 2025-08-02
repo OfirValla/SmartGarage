@@ -12,6 +12,10 @@ def consumer(buffer: queue.Queue, stop_flag: threading.Event) -> None:
     """Consumer thread that saves images based on the configured storage system"""
     minio_storage: MinIOStorage | None = None
     
+    if STORAGE_SYSTEM == "none":
+        print("Storage system is set to none, no images will be saved")
+        return
+
     # Initialize MinIO storage if using MinIO
     if STORAGE_SYSTEM == "minio":
         try:

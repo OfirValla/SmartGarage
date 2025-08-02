@@ -4,8 +4,9 @@ import threading
 import time
 from typing import List
 import numpy as np
-from config import CAMERA_URL, FRAME_RATE_LIMIT, RUNTIME_MINUTES, RESIZE_DIMENSIONS
+from config import RESIZE_DIMENSIONS, CAMERA_URL, FRAME_RATE_LIMIT, RUNTIME_MINUTES
 from image_consumer import consumer
+from model_predictor import ModelPredictor
 
 class CameraHandler:
     def __init__(self) -> None:
@@ -16,6 +17,9 @@ class CameraHandler:
         self.cap: cv2.VideoCapture = cv2.VideoCapture(CAMERA_URL)
         self.consumer_threads: List[threading.Thread] = []
         self.stop_flag: threading.Event = threading.Event()
+        
+        # Initialize model predictor
+        self.model_predictor = ModelPredictor()
         
     def start_consumer_threads(self) -> None:
         """Start the consumer threads"""
@@ -59,9 +63,22 @@ class CameraHandler:
                 last_time = curr_time
                 
                 resized_image: np.ndarray = cv2.resize(frame, RESIZE_DIMENSIONS, interpolation=cv2.INTER_AREA)
-                self.buffer.put(resized_image)
+                #self.buffer.put(resized_image)
                 
-                cv2.imshow('frame', resized_image)
+                # Make prediction on the cropped image
+                prediction, confidence = self.model_predictor.predict(frame)
+                
+                # Add prediction text to the frame
+                prediction_text = f"Gate Status: {prediction} ({confidence:.2f})"
+                cv2.putText(frame, prediction_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 
+                           1, (0, 255, 0) if prediction == "Open" else (0, 0, 255), 2)
+                
+                # Add timestamp
+                timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+                cv2.putText(frame, timestamp, (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 
+                           0.7, (255, 255, 255), 2)
+                
+                cv2.imshow('frame', frame)
                 
                 if cv2.waitKey(20) & 0xFF == ord('q'):
                     print("Shutdown - 'q' key pressed")
